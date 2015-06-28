@@ -1,0 +1,35 @@
+{
+  "name": "angular-signature-pad",
+  "version": "v0.0.1",
+  "authors": [
+    "ByGiro <girotomaselli@gmail.com>"
+  ],
+  "contributors": [],
+  "main": [
+    "dist/angular-signature-pad.js",
+    "dist/angular-signature-pad.min.js"
+  ],
+  "description": "Angular version of szimek/signature_pad",
+  "keywords": [
+    "AngularJs",
+    "form",
+    "ByGiro",
+    "signature-pad"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": ">=1.2.x",
+    "signature_pad": "~1.4.0"
+  },
+  "devDependencies": {
+    "chai": "~1.9.1",
+    "mocha": "~1.21.4"
+  }
+}

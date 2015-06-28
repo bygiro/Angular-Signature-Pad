@@ -12,7 +12,7 @@ angular.module('ByGiro.signaturePad',[])
 		options = {
 			height: 220,
 			width: 568,
-			cancelBtn: 'Cancel'
+			clearBtn: 'Cancel'
 		};
 		
 		for(var k in options){

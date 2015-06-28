@@ -12,7 +12,7 @@ angular.module('ByGiro.signaturePad',[])
 		options = {
 			height: 220,
 			width: 568,
-			cancelBtn: 'Cancel'
+			clearBtn: 'Cancel'
 		};
 		
 		for(var k in options){
@@ -72,6 +72,6 @@ angular.module('ByGiro.signaturePad',[])
 			dataVal: "=?model"
 		},
 		link: link,
-		template:'<canvas class=signature-pad height={{opts.height}} width={{opts.width}}></canvas><p><span class=\"btn btn-default btn-clear-sign\" ng-click=clear()>{{opts.cancelBtn}}</span></p>'
+		template:'<div class=signature-container><canvas class=signature-pad height={{opts.height}} width={{opts.width}}></canvas><span class=\"btn btn-default btn-clear-sign\" ng-click=clear()>{{opts.clearBtn}}</span></div>'
 	});
 }]);

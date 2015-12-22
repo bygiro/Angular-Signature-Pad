@@ -1,4 +1,4 @@
-/*! angular-signature-pad - v0.0.1 - 14 giugno 2015
+/*! angular-signature-pad - v0.0.2 - 14 giugno 2015
 * Copyright (c) G. Tomaselli <girotomaselli@gmail.com> 2015; Licensed  
 */
 
@@ -67,8 +67,8 @@ angular.module('ByGiro.signaturePad',[])
 	return({
 		restrict: "A",
 		scope: {
-			accept: '=',
-			clear: '=',
+			accept: '=?',
+			clear: '=?',
 			dataVal: "=?model"
 		},
 		link: link,

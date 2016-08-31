@@ -1,4 +1,4 @@
-/*! angular-signature-pad - v0.0.3 - 14 giugno 2015
+/*! angular-signature-pad - v0.0.4 - 31 august 2016
 * Copyright (c) G. Tomaselli <girotomaselli@gmail.com> 2015; Licensed  
 */
 
@@ -9,7 +9,8 @@ angular.module('ByGiro.signaturePad',[])
 			var defaultOpts = {
 				height: 220,
 				width: 568,
-				clearBtn: 'Cancel'
+				clearBtn: 'Cancel',
+				setModel: false
 			},
 			canvas,signaturePad;
 			
@@ -21,10 +22,15 @@ angular.module('ByGiro.signaturePad',[])
 			if ($scope.signature && !$scope.signature.$isEmpty && $scope.signature.dataUrl) {
 			  signaturePad.fromDataURL($scope.signature.dataUrl);
 			}
-			
-			canvas.on('mouseup',function(){				
-				$scope.dataVal = !signaturePad.isEmpty() ? signaturePad.toDataURL() : '';
-				setModel();
+
+			angular.element(document).on('mouseup',function(e){
+				// check the mouse up is on the canvas
+				if(angular.equals(e.target, canvas[0])){
+					$scope.dataVal = !signaturePad.isEmpty() ? signaturePad.toDataURL() : '';
+					setModel();					
+				} else {
+					$scope.clear();
+				}
 			});
 			
 			$scope.clear = function () {
@@ -32,18 +38,22 @@ angular.module('ByGiro.signaturePad',[])
 				$scope.dataVal = '';
 				setModel();
 			};
-			
+
 			function setModel(){
+				if(typeof $scope.opts.setModel == 'function'){
+					$scope.opts.setModel($scope,$attrs,$parse);
+					return;
+				}
 				if(!$attrs.modelKey || !$scope.$parent.model) return;
-				
-				
+
 				var	modelGetter = $parse($attrs.modelKey);
 
 				// This returns a function that lets us set the value of the ng-model binding expression:
 				var modelSetter = modelGetter.assign;
 
-				// This is how you can use it to set the value on the given scope.
-				modelSetter($scope.$parent.model, $scope.dataVal);				
+				if(typeof modelSetter != 'function') return;
+
+				modelSetter($scope.$parent.model, $scope.dataVal);
 				$timeout();
 			}
 			

@@ -17,13 +17,21 @@ angular.module('ByGiro.signaturePad',[])
 			$scope.opts = angular.extend({},defaultOpts,$scope.opts);
 			
 			canvas = $element.find('canvas');
-			signaturePad = new SignaturePad(canvas.get(0));
+			signaturePad = new SignaturePad(canvas.get(0),$scope.opts);
 			
 			if ($scope.signature && !$scope.signature.$isEmpty && $scope.signature.dataUrl) {
 			  signaturePad.fromDataURL($scope.signature.dataUrl);
 			}
 
-			angular.element(document).on('mouseup',function(e){
+			var writingStarted = false;
+			$element.on('mousedown touchstart',function(e){
+				writingStarted = true;
+			});
+			
+			angular.element(document).on('mouseup touchend',function(e){
+				if(!writingStarted) return;
+				
+				writingStarted = false;
 				// check the mouse up is on the canvas
 				if(angular.equals(e.target, canvas[0])){
 					$scope.dataVal = !signaturePad.isEmpty() ? signaturePad.toDataURL() : '';
@@ -65,7 +73,7 @@ angular.module('ByGiro.signaturePad',[])
 		},
 		restrict: "A",
 		replace: true,
-		template:'<div class=signature-container><canvas class=signature-pad height={{opts.height}} width={{opts.width}}></canvas><span class=\"btn btn-default btn-clear-sign\" ng-click=clear()>{{opts.clearBtn}}</span></div>',
+		templateUrl: 'tmpl.html',
 		controller: contrFunction
 	});
 }]);

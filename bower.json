@@ -26,7 +26,7 @@
   ],
   "dependencies": {
     "angular": ">=1.2.x",
-    "signature_pad": "~1.4.0"
+    "signature_pad": "*"
   },
   "devDependencies": {
     "chai": "~1.9.1",

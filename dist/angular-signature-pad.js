@@ -1,4 +1,4 @@
-/*! angular-signature-pad - v0.0.4 - 31 august 2016
+/*! angular-signature-pad - v0.0.5 - 31 august 2016
 * Copyright (c) G. Tomaselli <girotomaselli@gmail.com> 2015; Licensed  
 */
 
@@ -23,15 +23,15 @@ angular.module('ByGiro.signaturePad',[])
 			  signaturePad.fromDataURL($scope.signature.dataUrl);
 			}
 
-			var writingStarted = false;
+			$scope.$parent.writingStarted = false;
 			$element.on('mousedown touchstart',function(e){
-				writingStarted = true;
+				$scope.$parent.writingStarted = true;
 			});
 			
 			angular.element(document).on('mouseup touchend',function(e){
-				if(!writingStarted) return;
+				if(!$scope.$parent.writingStarted) return;
 				
-				writingStarted = false;
+				$scope.$parent.writingStarted = false;
 				// check the mouse up is on the canvas
 				if(angular.equals(e.target, canvas[0])){
 					$scope.dataVal = !signaturePad.isEmpty() ? signaturePad.toDataURL() : '';
